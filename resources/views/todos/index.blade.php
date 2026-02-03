@@ -49,20 +49,21 @@
 
 <div class="container">
     <h2>📝 Todo List</h2>
-
-    {{-- Add Todo Form --}}
     <form action="{{ route('todos.store') }}" method="POST">
         @csrf
         <input type="text" name="title" placeholder="Enter new todo">
         <button type="submit">Add</button>
+        {{-- <input type="checkbox" name="completed" value="1"> Completed --}}
     </form>
 
-    {{-- Todo List --}}
     <ul>
         @foreach ($todos as $todo)
             <li>
-                <span>{{ $todo->title }}</span>
 
+                {{-- <input type="checkbox" {{ $todo->completed ? 'checked' : '' }}> --}}
+                
+                <span>{{ $todo->title }}</span>
+                <span>{{$todo->created_at->diffForHumans()}}</span>
                 <form action="{{ route('todos.destroy', $todo->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
